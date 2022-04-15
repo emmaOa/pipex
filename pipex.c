@@ -7,7 +7,7 @@ int	ft_exit(void)
 	exit (1);
 }
 
-int	ft_url(char *path, char *comnd)
+char	*ft_url(char *path, char *comnd)
 {
 	int i;
 	char **url;
@@ -21,10 +21,10 @@ int	ft_url(char *path, char *comnd)
 		cmd_path = ft_strjoin(url[i], "/");
 		cmd_path = ft_strjoin(cmd_path, comnd);
 		if (access(cmd_path, F_OK) == 0)
-			return (1);
+			return (cmd_path);
 		i++;
 	}
-	return (-1);
+	return (NULL);
 }
 
 char *ft_path(char *env[])
@@ -65,60 +65,54 @@ char **ft_param(char *arv)
 
 int main(int arc, char *arv[], char *env[])
 {
-	int fd_file;
-	int fd2_file;
-	char *name_file;
 	int	fd[2];
-	char **param;
-	int	fr1;
-	int fr2;
-	int url;
+	t_pipe	pp;
 	(void)arc;
 
-	name_file = arv[1];
-	fd_file = open(name_file, O_RDONLY);
-	if (open(name_file, O_RDONLY) == -1)
-		perror ("open");
+	pp.name_file = arv[1];
+	pp.fd_file = open(pp.name_file, O_RDONLY ,0644);
+	if (pp.fd_file == -1)
+		ft_exit();
 	if (pipe(fd) == -1)
 		ft_exit();
-	fr1 = fork();
-	if (fr1 == -1)
+	pp.fr1 = fork();
+	if (pp.fr1 == -1)
 		ft_exit();
-	if (fr1 == 0) 
+	
+	if (pp.fr1 == 0) 
 	{    
-		param = ft_param(arv[2]);
-		url= ft_url(ft_path(env), param[0]);
-		if (url == -1)
+		pp.param = ft_param(arv[2]);
+		pp.url= ft_url(ft_path(env), pp.param[0]);
+		if (pp.url == 	NULL)
 			ft_exit();
-		dup2(fd_file, fd[0]);
-		dup2(fd_file, fd[1]);
-		if (execve(param[0], param, env) < 0)
-			exit(0);         
-		close(fd[1]);
-		close(fd[0]);             
-	}
-	fr2 = fork();
-	if (fr2 == -1)
-		ft_exit();
-	if (fr2 == 0)
-	{
-		param = ft_param(arv[3]);
-		url= ft_url(ft_path(env), param[0]);
-		if (url == -1)
-			ft_exit();
-		// if (fd2_file = open(arv[4], O_RDWR  | O_CREAT) < 0)
-		// 	exit(0);
-		fd2_file = open(arv[4], O_RDWR | O_CREAT);
-		if (fd2_file == -1)
-			exit(0);
-		dup2(fd2_file, 1);
-		dup2(fd2_file, 0);
-		if (execve(param[0], param, env) < 0)
-			exit(0);
-		close(fd[1]);
-		close(fd[0]);   
-	}
-		wait(NULL);
+		dup2(pp.fd_file, 0);
+		dup2(fd[1], 1);
 		close(fd[1]);
 		close(fd[0]);
+		if (execve(pp.url, pp.param, env) < 0)
+			exit(0);
+	}
+	if (pp.fr1 != 0)
+		pp.fr2 = fork();
+	if (pp.fr2 == -1)
+		ft_exit();
+	if (pp.fr2 == 0)
+	{
+		pp.param = ft_param(arv[3]);
+		pp.url = ft_url(ft_path(env), pp.param[0]);
+		if (pp.url == NULL)
+			ft_exit();
+		pp.fd2_file = open(arv[4],  O_CREAT | O_RDWR, 0644);
+		if (pp.fd2_file == -1)
+			exit(0);
+		dup2(pp.fd2_file, 1);
+		dup2(fd[0], 0);
+		close(fd[1]);
+		close(fd[0]);
+		if (execve(pp.url, pp.param, env) < 0)
+			exit(0);
+	}
+		close(fd[1]);
+		close(fd[0]);
+		while (wait(NULL) != -1);
 }

@@ -12,7 +12,7 @@ $(VRLIBFT):
 	make re -C libft
 $(VRPRINTF):
 	make re -C printf
-$(NAME): 
+$(NAME): $(VRPRINTF) $(VRLIBFT)
 	gcc $(FLAGS) $(MANDATORY) -o  $(NAME)
 
 debug:
@@ -26,6 +26,6 @@ clean:
 fclean:
 	make fclean -C libft
 	make fclean -C printf
-	rm -rf *.o $(NAME)
+	rm -rf *.o $(NAME) $(VRPRINTF) $(VRLIBFT)
 
 re: fclean all
