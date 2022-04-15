@@ -1,11 +1,13 @@
 VRLIBFT= libft/libft.a
 VRPRINTF= printf/libftprintf.a
-MANDATORY= pipex.c $(VRLIBFT) $(VRPRINTF)
+MANDATORY= pipex.c pipex_utl.c $(VRLIBFT) $(VRPRINTF)
+BONUS= pipex_bonus.c $(VRLIBFT) $(VRPRINTF)
 CC=cc
 FLAGS=-Wall -Werror -Wextra
 DEBUG=-fsanitize=address -g
 NAME=pipex
 O_MANDATORY=$(MANDATORY:%.c=%.o)
+O_BONUS=$(BONUS:%.c=%.o)
 
 all: $(NAME)
 $(VRLIBFT):
@@ -13,7 +15,9 @@ $(VRLIBFT):
 $(VRPRINTF):
 	make re -C printf
 $(NAME): $(VRPRINTF) $(VRLIBFT)
-	gcc $(FLAGS) $(MANDATORY) -o  $(NAME)
+	gcc $(FLAGS) $(MANDATORY) $(BONUS) -o  $(NAME)
+
+bonus: $(O_MANDATORY) $(O_BONUS)
 
 debug:
 	gcc $(FLAGS) $(DEBUG) $(MANDATORY) -o $(NAME)
