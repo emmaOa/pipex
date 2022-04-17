@@ -1,11 +1,12 @@
 VRLIBFT= libft/libft.a
 VRPRINTF= printf/libftprintf.a
-MANDATORY= pipex.c pipex_utl.c $(VRLIBFT) $(VRPRINTF)
-BONUS= pipex_bonus.c $(VRLIBFT) $(VRPRINTF)
+MANDATORY= pipex.c pipex_utl.c $(VRLIBFT) $(VRPRINTF) $(VRGET_NEXT)
+BONUS= pipex_bonus.c pipex_utl_bonus.c get_next_line.c get_next_line_utils.c $(VRLIBFT) $(VRPRINTF)
 CC=cc
 FLAGS=-Wall -Werror -Wextra
 DEBUG=-fsanitize=address -g
 NAME=pipex
+PIP=pipex_bonus
 O_MANDATORY=$(MANDATORY:%.c=%.o)
 O_BONUS=$(BONUS:%.c=%.o)
 
@@ -15,12 +16,14 @@ $(VRLIBFT):
 $(VRPRINTF):
 	make re -C printf
 $(NAME): $(VRPRINTF) $(VRLIBFT)
-	gcc $(FLAGS) $(MANDATORY) $(BONUS) -o  $(NAME)
-
-bonus: $(O_MANDATORY) $(O_BONUS)
+	gcc $(FLAGS) $(MANDATORY) -o  $(NAME)
+bonus: $(PIP)
 
 debug:
-	gcc $(FLAGS) $(DEBUG) $(MANDATORY) -o $(NAME)
+	gcc $(FLAGS) $(DEBUG) $(BONUS) -o $(NAME)
+
+$(PIP):
+	gcc $(FLAGS) $(BONUS) -o $(PIP)
 
 clean:
 	make clean -C libft
@@ -30,6 +33,6 @@ clean:
 fclean:
 	make fclean -C libft
 	make fclean -C printf
-	rm -rf *.o $(NAME) $(VRPRINTF) $(VRLIBFT)
+	rm -rf *.o $(NAME) $(VRPRINTF) $(VRLIBFT) $(PIP)
 
 re: fclean all

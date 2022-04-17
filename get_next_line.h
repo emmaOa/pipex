@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 16:18:45 by iouazzan          #+#    #+#             */
-/*   Updated: 2021/12/02 16:18:50 by iouazzan         ###   ########.fr       */
+/*   Created: 2021/12/07 05:08:24 by iouazzan          #+#    #+#             */
+/*   Updated: 2022/04/15 22:45:48 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdarg.h>
+# include <limits.h>
+# define	BUFFER_SIZE	10
 
-int		ft_putchar(char c, int *rtn);
-void	ft_putnbr_hl(unsigned int nb, int *rtn);
-void	ft_putnbr_hu(unsigned int nb, int *rtn);
-void	ft_putnbr(int nb, int *rtn);
-void	ft_putstr(char *str, int *rtn);
-void	ft_putnbr_uns(unsigned int nb, int *rtn);
-void	ft_pointer(unsigned long p, int *rtn);
-int		ft_printf(const char *str, ...);
+char	*get_next_line(int fd);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_line(int fd, char **backup);
+char	*ft_return(char **line, char **buckup);
 #endif
