@@ -1,5 +1,5 @@
-#include "pipex.h"
-#include <stdio.h>
+Binary file (standard input) matches
+
 char	*ft_url(char *path, char *comnd)
 	char	**url;
 	url = ft_split(path, ':');
