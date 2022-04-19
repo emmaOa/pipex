@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 02:51:01 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/04/17 06:01:31 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/04/19 03:20:24 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ int main(int arc, char *arv[], char *env[])
 		close(pp.fd_pipe[j][1]);
 		close(pp.fd_pipe[j][0]);
 		i++;
-		j++;
+		// j++;
+		pp.nb_cmnd--;
 		if (execve(pp.url, pp.param, env) < 0)
 		ft_exit_bonus();
 	}

@@ -16,14 +16,15 @@ $(VRLIBFT):
 $(VRPRINTF):
 	make re -C printf
 $(NAME): $(VRPRINTF) $(VRLIBFT)
-	gcc $(FLAGS) $(MANDATORY) -o  $(NAME)
-bonus: $(PIP)
+	gcc $(FLAGS) $(MANDATORY) -o $(NAME) -fsanitize=address
 
 debug:
-	gcc $(FLAGS) $(DEBUG) $(BONUS) -o $(NAME)
+	gcc $(FLAGS) $(DEBUG) $(MANDATORY) -o $(NAME)
+
+bonus: $(PIP)
 
 $(PIP):
-	gcc $(FLAGS) $(BONUS) -o $(PIP)
+	gcc $(FLAGS) $(BONUS) -o $(PIP) -g
 
 clean:
 	make clean -C libft
@@ -33,6 +34,6 @@ clean:
 fclean:
 	make fclean -C libft
 	make fclean -C printf
-	rm -rf *.o $(NAME) $(VRPRINTF) $(VRLIBFT) $(PIP)
+	rm -rf *.o $(NAME) $(PIP)
 
 re: fclean all

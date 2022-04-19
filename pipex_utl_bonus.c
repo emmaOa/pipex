@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 21:03:13 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/04/17 05:30:22 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/04/19 03:20:28 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_fork_1_bonus(t_pipe *pp, char *arv[], char *env[])
 	dup2(pp->fd_pipe[0][1], 1);
 	close(pp->fd_pipe[0][1]);
 	close(pp->fd_pipe[0][0]);
+	printf("-----\n");
 	if (execve(pp->url, pp->param, env) < 0)
 		ft_exit_bonus();
 }
@@ -63,8 +64,10 @@ t_pipe		*ft_fd_pipe(t_pipe *pp)
 	int i;
 
 	i = 0;
+	pp->fd_pipe = malloc(pp->nb_pipe * sizeof(int));
 	while (i < pp->nb_pipe)
 	{
+		pp->fd_pipe[i] = malloc(2 * sizeof(int));
 		if (pipe(pp->fd_pipe[i]) == -1)
 			ft_exit_bonus();
 		i++;
