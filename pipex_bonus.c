@@ -36,12 +36,10 @@ char	*ft_url_bonus(char *path, char *comnd)
 char	*ft_path_bonus(char *env[])
 {
 	int		i;
-	int		j;
 	char	*pt;
 	char	*tmp;
 
 	i = 0;
-	j = 0;
 	tmp = NULL;
 	pt = "PATH";
 	while (env[i])
@@ -61,10 +59,8 @@ char	*ft_path_bonus(char *env[])
 
 char	**ft_param_bonus(char *arv)
 {
-	int		i;
 	char	**param;
 
-	i = 0;
 	param = ft_split(arv, ' ');
 	return (param);
 }
@@ -73,7 +69,7 @@ int main(int arc, char *arv[], char *env[])
 {
 	t_pipe	pp;
 	int i;
-	int	j;
+	int j;
 
 	i = 3;
 	j = 1;
@@ -95,21 +91,29 @@ int main(int arc, char *arv[], char *env[])
 		if (pp.fr1 == -1)
 			ft_exit_bonus();
 		if (pp.fr1 == 0)
-		ft_cmnd(&pp, arv[arc - i], env);
+			ft_cmnd(&pp, arv[arc - i], env);
+		
 		dup2(pp.fd_pipe[j - 1][0], 0);
 		dup2(pp.fd_pipe[j][1], 1);
+
 		close(pp.fd_pipe[j][1]);
 		close(pp.fd_pipe[j][0]);
 		i++;
-		// j++;
 		pp.nb_cmnd--;
 		if (execve(pp.url, pp.param, env) < 0)
+		{
+			
+			ft_exit_bonus();
+		}
+	}
+
+	pp.fr2 = fork();
+	if (pp.fr2 == -1)
+	{
+		
 		ft_exit_bonus();
 	}
-	pp.fr1 = fork();
-	if (pp.fr1 == -1)
-		ft_exit_bonus();
-	if (pp.fr1 == 0)
+	if (pp.fr2 == 0)
 		ft_fork_last_bonus(&pp, arv[arc - 1], env);
 	return (0);
 }

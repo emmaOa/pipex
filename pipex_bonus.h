@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <unistd.h>
 # include <fcntl.h>
+#include <sys/wait.h>
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
@@ -31,6 +32,7 @@ typedef struct t_pipe
 	int		nb_cmnd;
 	int		nb_pipe;
 	int		fr1;
+	int		fr2;
 	int		**fd_pipe;
 }	t_pipe;
 
@@ -40,7 +42,7 @@ char		**ft_param_bonus(char *arv);
 int			ft_exit_bonus(void);
 void		ft_fork_last_bonus(t_pipe *pp, char arv[], char *env[]);
 void		ft_fork_1_bonus(t_pipe *pp, char *arv[], char *env[]);
-t_pipe		*ft_fd_pipe(t_pipe *pp);
+void		ft_fd_pipe(t_pipe *pp);
 int			ft_exit_bonus(void);
 void		ft_cmnd(t_pipe *pp, char arv[], char *env[]);
 

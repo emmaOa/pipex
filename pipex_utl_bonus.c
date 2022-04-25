@@ -37,13 +37,13 @@ void	ft_fork_1_bonus(t_pipe *pp, char *arv[], char *env[])
 	dup2(pp->fd_pipe[0][1], 1);
 	close(pp->fd_pipe[0][1]);
 	close(pp->fd_pipe[0][0]);
-	printf("-----\n");
 	if (execve(pp->url, pp->param, env) < 0)
 		ft_exit_bonus();
 }
 
 void	ft_fork_last_bonus(t_pipe *pp, char arv[], char *env[])
 {
+	
 	pp->param = ft_param_bonus(arv);
 	pp->url = ft_url_bonus(ft_path_bonus(env), pp->param[0]);
 	if (pp->url == NULL)
@@ -59,7 +59,7 @@ void	ft_fork_last_bonus(t_pipe *pp, char arv[], char *env[])
 		ft_exit_bonus();
 }
 
-t_pipe		*ft_fd_pipe(t_pipe *pp)
+void	ft_fd_pipe(t_pipe *pp)
 {
 	int i;
 
@@ -70,7 +70,7 @@ t_pipe		*ft_fd_pipe(t_pipe *pp)
 		pp->fd_pipe[i] = malloc(2 * sizeof(int));
 		if (pipe(pp->fd_pipe[i]) == -1)
 			ft_exit_bonus();
+
 		i++;
 	}
-	return (pp);
 }
