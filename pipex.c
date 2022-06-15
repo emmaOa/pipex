@@ -36,10 +36,12 @@ char	*ft_url(char *path, char *comnd)
 char	*ft_path(char *env[])
 {
 	int		i;
+	int		j;
 	char	*pt;
 	char	*tmp;
 
 	i = 0;
+	j = 0;
 	tmp = NULL;
 	pt = "PATH";
 	while (env[i])
@@ -59,8 +61,10 @@ char	*ft_path(char *env[])
 
 char	**ft_param(char *arv)
 {
+	int		i;
 	char	**param;
 
+	i = 0;
 	param = ft_split(arv, ' ');
 	return (param);
 }
