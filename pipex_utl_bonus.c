@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 21:03:13 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/16 16:09:47 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/16 23:14:25 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,91 @@ int	ft_exit_bonus(void)
 	exit (1);
 }
 
-// void	ft_close(t_pipe *pp, )
-
-// void	ft_cmnd(t_pipe *pp, char arv[], char *env[])
-// {
-// 	pp->param = ft_param_bonus(arv, pp);
-// 	pp->url = ft_url_bonus(ft_path_bonus(env), pp->param[0]);
-// 	if (pp->url == NULL)
-// 		ft_exit_bonus();
-// }
-
-void	ft_fork_bonus(t_pipe *pp, char *arv[], char *env[], int *fd_pipe[], int arc)
+void	ft_close(t_pipe *pp)
 {
-	pp->param = ft_split(arv[arc - 4 + pp->i], ' ');
+	int i;
+
+	i = 0;
+	while (i < pp->nb_pipe)
+	{
+		close(pp->fd_pipe[i][0]);
+		close(pp->fd_pipe[i][1]);
+		i++;
+	}
+}
+
+char	*ft_url_bonus(char *path, t_pipe *pp)
+{
+	int i;
+	char **tmp;
+
+	i = 0;
+	tmp = ft_split(path, ':');
+	while (tmp[i])
+	{
+		tmp[i] = ft_strjoin(tmp[i], "/");
+		tmp[i] = ft_strjoin(tmp[i], pp->param[0]);
+		if (access(tmp[i], F_OK) == 0)
+			return(tmp[i]);
+		i++;
+	}
+	return (NULL);
+}
+
+char	*ft_path_bonus(char *env[])
+{
+	int		i;
+	char	*pt;
+	char	*tmp;
+
+	i = 0;
+	tmp = NULL;
+	pt = "PATH";
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], pt, ft_strlen(pt)) == 0)
+			tmp = env[i];
+		i++;
+	}
+	i = 0;
+	while (tmp[i])
+	{
+		tmp[i] = tmp[i + 5];
+		i++;
+	}
+	return (tmp);
+}
+
+void	ft_fork_bonus(t_pipe *pp, char *arv[], char *env[])
+{
+	pp->param = ft_split(arv[pp->i + 2], ' ');
 	pp->url = ft_url_bonus(ft_path_bonus(env), pp);
 	if (pp->url == NULL)
 		ft_exit_bonus();
-	dup2(fd_pipe[pp->i + 1][1], 1);
-	dup2(fd_pipe[pp->i][0], 0);
-	close(fd_pipe[pp->i][0]);
-	close(fd_pipe[pp->i + 1][1]);
+	if (pp->i == 0)
+	{
+		if (dup2(pp->fd_file, 0) < 0)
+			perror("dup2 main");
+		if (dup2(pp->fd_pipe[pp->i][1], 1) < 0)
+			perror("dup2 pipe stdout");
+	}
+
+	else if (pp->i == pp->nb_pipe - 1)
+	{
+		if (dup2(pp->fd_pipe[pp->i - 1][0], 0) < 0)
+			perror("dup pipe");
+		if (dup2(pp->fd_file_2 ,1) < 0)
+			perror("dup pipe stdout");
+	}
+	else 
+	{
+		if (dup2(pp->fd_pipe[pp->i][1], 1) < 0)
+			perror("dup stdout");
+		if (dup2(pp->fd_pipe[pp->i - 1][0], 0) < 0)
+			perror("dup stdin");
+	}
+	ft_close(pp);
 	if (execve(pp->url, pp->param, env) < 0)
 		ft_exit_bonus();
+	exit(0);
 }

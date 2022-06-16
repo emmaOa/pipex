@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:24:29 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/16 14:15:30 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/16 22:04:41 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,20 @@
 typedef struct t_pipe
 {
 	char	*url;
+	int		**fd_pipe;
 	int		fd[2];
 	char	**param;
-	int		fd_file;
 	int		fd_file_2;
 	int		fd_last_file;
-	char	*name_file;
 	char	*name_file_2;
-	int		i;
-	int		j;
+	int		fd_file;
+	int		fr1;
 	int		*fr;
+	char	*name_file;
 	int		nb_pipe;
 	int		nb_fork;
-	int		fr1;
+	int		i;
+	int		j;
 
 }	t_pipe;
 
@@ -43,10 +44,9 @@ char		*ft_url_bonus(char *path, t_pipe *pp);
 char		*ft_path_bonus(char *env[]);
 void		ft_param_bonus(char *arv[], t_pipe *pp, int arc);
 int			ft_exit_bonus(void);
-void		ft_fork_last_bonus(t_pipe *pp, char arv[], char *env[]);
-void		ft_fork_bonus(t_pipe *pp, char *arv[], char *env[], int *fd_pipe[], int arc);
+void		ft_fork_bonus(t_pipe *pp, char *arv[], char *env[]);
 t_pipe		*ft_fd_pipe(t_pipe *pp);
 int			ft_exit_bonus(void);
-void		ft_cmnd(t_pipe *pp, char arv[], char *env[]);
+void		ft_close(t_pipe *pp);
 
 #endif
