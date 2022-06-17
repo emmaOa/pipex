@@ -1,7 +1,7 @@
 VRLIBFT= libft/libft.a
 VRPRINTF= printf/libftprintf.a
 MANDATORY= pipex.c pipex_utl.c $(VRLIBFT) $(VRPRINTF)
-BONUS= pipex_bonus.c pipex_utl_bonus.c get_next_line.c get_next_line_utils.c $(VRLIBFT) $(VRPRINTF) $(VRGET_NEXT)
+BONUS= pipex_bonus.c pipex_utl_bonus.c get_next_line.c get_next_line_utils.c pipex_heredoc.c $(VRLIBFT) $(VRPRINTF) $(VRGET_NEXT)
 CC=cc
 FLAGS=-Wall -Werror -Wextra
 DEBUG=-fsanitize=address -g
@@ -24,7 +24,7 @@ debug:
 bonus: $(PIP)
 
 $(PIP):
-	gcc $(FLAGS) $(BONUS) $(DEBUG) -o $(PIP) -g
+	gcc $(FLAGS) $(BONUS) $(DEBUG)  -o $(PIP) -g
 
 clean:
 	make clean -C libft

@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:24:29 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/16 22:04:41 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:27:04 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
-typedef struct t_pipe
+typedef struct s_pipe
 {
 	char	*url;
 	int		**fd_pipe;
@@ -37,16 +37,19 @@ typedef struct t_pipe
 	int		nb_fork;
 	int		i;
 	int		j;
-
-}	t_pipe;
+}			t_pipe;
 
 char		*ft_url_bonus(char *path, t_pipe *pp);
 char		*ft_path_bonus(char *env[]);
 void		ft_param_bonus(char *arv[], t_pipe *pp, int arc);
 int			ft_exit_bonus(void);
 void		ft_fork_bonus(t_pipe *pp, char *arv[], char *env[]);
+void		ft_open_files(t_pipe *pp, char *arv[], int arc);
+void		ft_main_fork(t_pipe *pp, int arc, char *arv[], char *env[]);
+void		ft_pipe(t_pipe *pp, int arc);
 t_pipe		*ft_fd_pipe(t_pipe *pp);
 int			ft_exit_bonus(void);
+void		ft_wait(t_pipe *pp);
 void		ft_close(t_pipe *pp);
 
 #endif
