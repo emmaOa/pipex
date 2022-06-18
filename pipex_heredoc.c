@@ -6,12 +6,11 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:11:50 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/18 16:37:15 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:11:25 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
-#include <stdio.h>
 
 int	ft_exit_bonus(void)
 {
@@ -32,14 +31,14 @@ void	ft_foork_bonus_here(t_pipe *pp)
 	if (pp->i == 0)
 	{
 		if (dup2(pp->pipe_here[0], 0) < 0)
-			perror("dup2 main");
+			perror("dup2 main here");
 		if (dup2(pp->fd_pipe[pp->i][1], 1) < 0)
 			perror("dup2 pipe stdout");
 	}
 	else if (pp->i == pp->nb_pipe - 1)
 	{
 		if (dup2(pp->fd_pipe[pp->i - 1][0], 0) < 0)
-			perror("dup pipe");
+			perror("dup pipe here");
 		if (dup2(pp->fd_file_2, 1) < 0)
 			perror("dup pipe stdout");
 	}
@@ -56,7 +55,7 @@ void	ft_fork_here(t_pipe *pp, char *arv[], char *env[])
 	else
 	{
 		if (dup2(pp->fd_pipe[pp->i][1], 1) < 0)
-			perror("dup stdout");
+			perror("dup stdout here");
 		if (dup2(pp->fd_pipe[pp->i - 1][0], 0) < 0)
 			perror("dup stdin");
 	}

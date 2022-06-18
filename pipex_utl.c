@@ -6,12 +6,11 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 01:26:34 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/04/15 02:13:21 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:49:15 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
 
 int	ft_exit(void)
 {

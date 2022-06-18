@@ -6,12 +6,11 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 02:03:58 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/16 17:52:11 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:49:33 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
 
 char	*ft_url(char *path, char *comnd)
 {

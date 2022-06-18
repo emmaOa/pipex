@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:24:29 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/18 16:39:19 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:20:50 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PIPEX_BONUS_H
 # include <stdlib.h>
 # include <unistd.h>
-# include <unistd.h>
 # include <fcntl.h>
+# include <stdio.h>
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"

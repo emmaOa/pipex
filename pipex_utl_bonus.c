@@ -6,12 +6,11 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 21:03:13 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/17 17:49:15 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:48:17 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
-#include <stdio.h>
 
 void	ft_close(t_pipe *pp)
 {

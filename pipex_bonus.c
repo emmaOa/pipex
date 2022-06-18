@@ -6,12 +6,11 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 02:51:01 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/18 16:38:53 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:47:51 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
-#include <stdio.h>
 
 void	ft_pipe(t_pipe *pp)
 {
@@ -38,11 +37,11 @@ void	ft_open_files(t_pipe *pp, char *arv[], int arc)
 	pp->name_file = arv[1];
 	pp->fd_file = open(pp->name_file, O_RDONLY, 0644);
 	if (pp->fd_file == -1)
-		exit(1);
+		ft_exit_bonus();
 	pp->name_file_2 = arv[arc - 1];
 	pp->fd_file_2 = open(pp->name_file_2, O_CREAT | O_RDWR, 0644);
 	if (pp->fd_file_2 == -1)
-		exit(1);
+		ft_exit_bonus();
 }
 
 void	ft_main_fork(t_pipe *pp, int arc, char *arv[], char *env[])
@@ -76,7 +75,7 @@ void	ft_here_doc(t_pipe *pp, char *arv[])
 	pp->pipe_here = (int *)malloc(2 * sizeof(int));
 	if (pipe(pp->pipe_here) == -1)
 		ft_exit_bonus();
-	pp->fd_tmp_file = open("tmp_file->txt", O_CREAT | O_RDWR, 0644);
+	pp->fd_tmp_file = open("tmp_file.txt", O_CREAT | O_RDWR, 0644);
 	ft_putstr_fd("pipe heredoc> ", 1);
 	pp->tmp = get_next_line(0);
 	pp->tmp = ft_strjoin(pp->tmp, "\0");
