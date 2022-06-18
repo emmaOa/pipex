@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:24:29 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/18 01:36:26 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/18 16:39:19 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void		ft_open_files_here(t_pipe *pp, char *arv[], int arc);
 void		ft_main_fork_here(t_pipe *pp, int arc, char *arv[], char *env[]);
 void		ft_fork_here(t_pipe *pp, char *arv[], char *env[]);
 void		ft_foork_bonus_here(t_pipe *pp);
+void		ft_here_doc(t_pipe *pp, char *arv[]);
 void		ft_pipe(t_pipe *pp);
 t_pipe		*ft_fd_pipe(t_pipe *pp);
 int			ft_exit_bonus(void);

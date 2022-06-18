@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:11:50 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/18 01:48:50 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/18 16:37:15 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,10 @@ void	ft_foork_bonus_here(t_pipe *pp)
 {
 	if (pp->i == 0)
 	{
-
 		if (dup2(pp->pipe_here[0], 0) < 0)
 			perror("dup2 main");
 		if (dup2(pp->fd_pipe[pp->i][1], 1) < 0)
 			perror("dup2 pipe stdout");
-
 	}
 	else if (pp->i == pp->nb_pipe - 1)
 	{
@@ -57,20 +55,18 @@ void	ft_fork_here(t_pipe *pp, char *arv[], char *env[])
 		ft_foork_bonus_here(pp);
 	else
 	{
-
 		if (dup2(pp->fd_pipe[pp->i][1], 1) < 0)
 			perror("dup stdout");
 		if (dup2(pp->fd_pipe[pp->i - 1][0], 0) < 0)
 			perror("dup stdin");
 	}
-	close(pp->pipe_here[1]);                  
-	close(pp->pipe_here[0]);   
+	close(pp->pipe_here[1]);
+	close(pp->pipe_here[0]);
 	ft_close(pp);
 	if (execve(pp->url, pp->param, env) < 0)
 		ft_exit_bonus();
 	exit(0);
 }
-
 
 void	ft_main_fork_here(t_pipe *pp, int arc, char *arv[], char *env[])
 {
