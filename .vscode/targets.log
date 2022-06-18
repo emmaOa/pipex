@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Thu Jun 16 14:11:19 2022
+# Make data base, printed on Fri Jun 17 20:41:38 2022
 
 # Variables
 
@@ -41,15 +41,15 @@ DEBUG = -fsanitize=address -g
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # makefile (from `Makefile', line 4)
-BONUS = pipex_bonus.c pipex_utl_bonus.c get_next_line.c get_next_line_utils.c $(VRLIBFT) $(VRPRINTF) $(VRGET_NEXT)
+BONUS = pipex_bonus.c pipex_utl_bonus.c get_next_line.c get_next_line_utils.c pipex_heredoc.c $(VRLIBFT) $(VRPRINTF) $(VRGET_NEXT)
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000hd800043_/T/vscode-ipc-56c55b53-c5c1-4c15-9efc-5e78973cb277.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000hd800043_/T/vscode-ipc-9cd12c27-7f54-4234-85f3-851a3341c170.sock
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.Xt78rc0oiO/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.S9teVqvoqE/Render
 # environment
-PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # makefile (from `Makefile', line 2)
 VRPRINTF = printf/libftprintf.a
 # environment
@@ -61,7 +61,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.ZXOBQevVKY/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.q5mkfr5ZJi/Listeners
 # automatic
 %F = $(notdir $%)
 # makefile (from `Makefile', line 10)
@@ -131,21 +131,26 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.1240
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000001.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
 # environment
 __CF_USER_TEXT_ENCODING = 0x106A:0x0:0x0
+# environment
+COMMAND_MODE = unix2003
 # default
 MAKEFILES := 
+ 
 # automatic
 <F = $(notdir $<)
 # environment
 PAGER = less
 # environment
 LC_ALL = C
+# environment
+SECURITYSESSIONID = 186a8
 # automatic
 ^F = $(notdir $^)
 # default
@@ -163,9 +168,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3579
+VSCODE_PID = 1412
 # variable set hash-table stats:
-# Load=76/1024=7%, Rehash=0, Collisions=2/108=2%
+# Load=78/1024=8%, Rehash=0, Collisions=2/110=2%
 
 # Pattern-specific Variable Values
 
@@ -173,9 +178,9 @@ VSCODE_PID = 3579
 
 # Directories
 
-# . (device 16777227, inode 1615209): 25 files, no impossibilities.
+# . (device 16777229, inode 1615209): 28 files, no impossibilities.
 
-# 25 files, no impossibilities in 1 directories.
+# 28 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -194,7 +199,7 @@ all: pipex
 
 printf/libftprintf.a:
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-15 22:41:50
+#  Last modified 2022-06-17 17:53:07
 #  File has been updated.
 #  Successfully updated.
 #  commands to execute (from `Makefile', line 17):
@@ -210,7 +215,7 @@ printf/libftprintf.a:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-14 00:24:23
+#  Last modified 2022-06-17 15:31:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -226,7 +231,7 @@ debug:
 
 libft/libft.a:
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-15 22:41:52
+#  Last modified 2022-06-17 17:53:09
 #  File has been updated.
 #  Successfully updated.
 #  commands to execute (from `Makefile', line 15):
@@ -274,12 +279,12 @@ pipex_bonus:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 27):
-	gcc $(FLAGS) $(BONUS) $(DEBUG) -o $(PIP) -g
+	gcc $(FLAGS) $(BONUS) $(DEBUG)  -o $(PIP) -g
 	
 
 pipex: printf/libftprintf.a libft/libft.a
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-15 22:41:52
+#  Last modified 2022-06-17 17:53:09
 #  File has been updated.
 #  Successfully updated.
 #  commands to execute (from `Makefile', line 19):
@@ -299,6 +304,6 @@ pipex: printf/libftprintf.a libft/libft.a
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Jun 16 14:11:19 2022
+# Finished Make data base on Fri Jun 17 20:41:38 2022
 
  
