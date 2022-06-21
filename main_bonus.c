@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 16:38:25 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/18 16:38:43 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/20 17:35:24 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	main(int arc, char *arv[], char *env[])
 {
 	t_pipe	pp;
 
-	if (ft_strncmp(arv[1], "here_doc", ft_strlen(arv[1])) == 0)
+	if (ft_strncmp(arv[1], "here_doc", ft_strlen(arv[1])) == 0
+		&& ft_strlen(arv[1]) == ft_strlen("here_doc"))
 	{
 		pp.nb_pipe = arc - 4;
 		ft_here_doc(&pp, arv);

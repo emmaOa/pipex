@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 21:03:13 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/18 17:48:17 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/21 04:41:40 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ char	*ft_url_bonus(char *path, t_pipe *pp)
 	char	**tmp;
 
 	i = 0;
+	if (ft_strchr(pp->param[0], '/'))
+	{
+		if (access(pp->param[0], F_OK) == 0)
+			return (pp->param[0]);
+		return (NULL);
+	}
 	tmp = ft_split(path, ':');
 	while (tmp[i])
 	{
@@ -72,16 +78,16 @@ void	ft_foork_bonus_utl(t_pipe *pp)
 	if (pp->i == 0)
 	{
 		if (dup2(pp->fd_file, 0) < 0)
-			perror("dup2 main");
+			ft_exit_bonus("failed dup2 stdin first command", pp);
 		if (dup2(pp->fd_pipe[pp->i][1], 1) < 0)
-			perror("dup2 pipe stdout");
+			ft_exit_bonus("failed dup2 stdout first command", pp);
 	}
-	else if (pp->i == pp->nb_pipe - 1)
+	else
 	{
 		if (dup2(pp->fd_pipe[pp->i - 1][0], 0) < 0)
-			perror("dup pipe");
+			ft_exit_bonus("failed dup2 stdin last command", pp);
 		if (dup2(pp->fd_file_2, 1) < 0)
-			perror("dup pipe stdout");
+			ft_exit_bonus("failed dup2 stdout last command", pp);
 	}
 }
 
@@ -90,18 +96,17 @@ void	ft_fork_bonus(t_pipe *pp, char *arv[], char *env[])
 	pp->param = ft_split(arv[pp->i + 2], ' ');
 	pp->url = ft_url_bonus(ft_path_bonus(env), pp);
 	if (pp->url == NULL)
-		ft_exit_bonus();
+		ft_exit_bonus("command not founde: ", pp);
 	if (pp->i == 0 || pp->i == pp->nb_pipe - 1)
 		ft_foork_bonus_utl(pp);
 	else
 	{
 		if (dup2(pp->fd_pipe[pp->i][1], 1) < 0)
-			perror("dup stdout");
+			ft_exit_bonus("failed dup2 stdout last command", pp);
 		if (dup2(pp->fd_pipe[pp->i - 1][0], 0) < 0)
-			perror("dup stdin");
+			ft_exit_bonus("failed dup2 stdin last command", pp);
 	}
 	ft_close(pp);
 	if (execve(pp->url, pp->param, env) < 0)
-		ft_exit_bonus();
-	exit(0);
+		ft_exit_bonus("command not execute", pp);
 }

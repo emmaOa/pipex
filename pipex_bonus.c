@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 02:51:01 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/18 17:47:51 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/21 04:44:38 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_pipe(t_pipe *pp)
 	while (pp->i < pp->nb_pipe + 1)
 	{
 		if (pipe(pp->fd_pipe[pp->i]) == -1)
-			ft_exit_bonus();
+			ft_exit_bonus("error: pipe failed", pp);
 		pp->i++;
 	}
 }
@@ -37,11 +37,11 @@ void	ft_open_files(t_pipe *pp, char *arv[], int arc)
 	pp->name_file = arv[1];
 	pp->fd_file = open(pp->name_file, O_RDONLY, 0644);
 	if (pp->fd_file == -1)
-		ft_exit_bonus();
+		ft_exit_bonus("open first file is failed", pp);
 	pp->name_file_2 = arv[arc - 1];
 	pp->fd_file_2 = open(pp->name_file_2, O_CREAT | O_RDWR, 0644);
 	if (pp->fd_file_2 == -1)
-		ft_exit_bonus();
+		ft_exit_bonus("open second file is failed", pp);
 }
 
 void	ft_main_fork(t_pipe *pp, int arc, char *arv[], char *env[])
@@ -53,7 +53,7 @@ void	ft_main_fork(t_pipe *pp, int arc, char *arv[], char *env[])
 	{
 		pp->fr[pp->i] = fork();
 		if (pp->fr[pp->i] == -1)
-			ft_exit_bonus();
+			ft_exit_bonus("error: failed in fork", pp);
 		if (pp->fr[pp->i] == 0)
 			ft_fork_bonus(pp, arv, env);
 		pp->i++;
@@ -74,21 +74,16 @@ void	ft_here_doc(t_pipe *pp, char *arv[])
 {
 	pp->pipe_here = (int *)malloc(2 * sizeof(int));
 	if (pipe(pp->pipe_here) == -1)
-		ft_exit_bonus();
-	pp->fd_tmp_file = open("tmp_file.txt", O_CREAT | O_RDWR, 0644);
+		ft_exit_bonus("failed pipe here_doc", pp);
 	ft_putstr_fd("pipe heredoc> ", 1);
 	pp->tmp = get_next_line(0);
 	pp->tmp = ft_strjoin(pp->tmp, "\0");
-	ft_putstr_fd(pp->tmp, pp->fd_tmp_file);
+	ft_putstr_fd(pp->tmp, pp->pipe_here[1]);
 	while (ft_strncmp(pp->tmp, arv[2], ft_strlen(arv[2])) != 0)
 	{
 		ft_putstr_fd("pipe heredoc> ", 1);
 		pp->tmp = get_next_line(0);
 		pp->tmp = ft_strjoin(pp->tmp, "\0");
-		ft_putstr_fd(pp->tmp, pp->fd_tmp_file);
-		if (!pp->tmp)
-			ft_exit_bonus();
+		ft_putstr_fd(pp->tmp, pp->pipe_here[1]);
 	}
-	dup2(pp->pipe_here[1], pp->fd_tmp_file);
-	close(pp->fd_tmp_file);
 }

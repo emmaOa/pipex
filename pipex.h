@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 02:14:08 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/18 19:20:45 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/21 04:45:33 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct t_pipe
 
 }	t_pipe;
 
-int		ft_exit(void);
+void	ft_exit(char *s, t_pipe *pp);
 char	*ft_url(char *path, char *comnd);
 char	*ft_path(char *env[]);
 char	**ft_param(char *arv);
