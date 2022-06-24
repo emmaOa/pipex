@@ -103,7 +103,7 @@ char	*ft_return(char **line, char **buckup)
 
 char	*get_next_line(int fd)
 {
-	static char	*backup[OPEN_MAX];
+	static char	*backup[256];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)

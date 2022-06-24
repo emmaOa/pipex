@@ -13,6 +13,28 @@
 #include "pipex_bonus.h"
 #include <stdio.h>
 
+void	ft_free_bonus(char **tabl, int start, int len)
+{
+	while(start < len)
+	{
+		free(tabl[start]);
+		start++;
+	}
+	free(tabl);
+}
+
+int		ft_len_bonus(char **tabl)
+{
+	int i;
+
+	i = 0;
+	while(tabl[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
 int	main(int arc, char *arv[], char *env[])
 {
 	t_pipe	pp;

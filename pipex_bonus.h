@@ -56,5 +56,6 @@ void		ft_pipe(t_pipe *pp);
 t_pipe		*ft_fd_pipe(t_pipe *pp);
 void		ft_wait(t_pipe *pp);
 void		ft_close(t_pipe *pp);
-
+void		ft_free_bonus(char **tabl, int start, int len);
+int			ft_len_bonus(char **tabl);
 #endif

@@ -12,11 +12,34 @@
 
 #include "pipex.h"
 
+void	ft_free(char **tabl, int start, int len)
+{
+	while(start < len)
+	{
+		free(tabl[start]);
+		start++;
+	}
+	free(tabl);
+}
+
+int		ft_len(char **tabl)
+{
+	int i;
+
+	i = 0;
+	while(tabl[i])
+	{
+		i++;
+	}
+	return (i);
+}
 char	*ft_url(char *path, char *comnd)
 {
 	int		i;
 	char	**url;
 	char	*cmd_path;
+	char	*tmp;
+	int		len;
 
 	i = 0;
 	if (ft_strchr(comnd, '/'))
@@ -26,14 +49,23 @@ char	*ft_url(char *path, char *comnd)
 		return (NULL);
 	}
 	url = ft_split(path, ':');
+	len = ft_len(url);
 	while (url[i])
 	{
 		cmd_path = ft_strjoin(url[i], "/");
+		tmp = cmd_path;
 		cmd_path = ft_strjoin(cmd_path, comnd);
+		free(tmp);
 		if (access(cmd_path, F_OK) == 0)
+		{
+			ft_free(url, i, len);
 			return (cmd_path);
+		}
+		free(cmd_path);
+		free(url[i]);
 		i++;
 	}
+	free(url);
 	return (NULL);
 }
 

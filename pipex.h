@@ -39,4 +39,6 @@ char	*ft_path(char *env[]);
 char	**ft_param(char *arv);
 void	ft_fork_1(t_pipe *pp, char *arv[], char *env[]);
 void	ft_fork_2(t_pipe *pp, char *arv[], char *env[]);
+void	ft_free(char **tabl, int start, int len);
+int		ft_len(char **tabl);
 #endif

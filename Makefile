@@ -16,7 +16,7 @@ BONUS= pipex_bonus.c pipex_utl_bonus.c get_next_line.c get_next_line_utils.c\
 	pipex_heredoc.c main_bonus.c ft_putstr_fd.c ft_strncmp.c\
 	ft_split.c ft_putchar_fd.c$(VRGET_NEXT)
 CC=cc
-FLAGS=-Wall -Werror -Wextra
+FLAGS=#-Wall -Werror -Wextra
 DEBUG=-fsanitize=address -g
 NAME=pipex
 PIP=pipex_bonus
@@ -32,7 +32,7 @@ $(NAME):
 debug:
 	gcc $(FLAGS) $(DEBUG) $(MANDATORY) -o $(NAME)
 
-bonus: $(VRGET_NEXT) $(PIP)
+bonus: $(VRGET_NEXT) $(PIP) -fsanitize=address -g
 
 $(PIP):
 	gcc $(FLAGS) $(BONUS) $(DEBUG)  -o $(PIP) -g

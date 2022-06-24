@@ -29,6 +29,7 @@ char	*ft_url_bonus(char *path, t_pipe *pp)
 {
 	int		i;
 	char	**tmp;
+	int len;
 
 	i = 0;
 	if (ft_strchr(pp->param[0], '/'))
@@ -38,14 +39,20 @@ char	*ft_url_bonus(char *path, t_pipe *pp)
 		return (NULL);
 	}
 	tmp = ft_split(path, ':');
+	len = ft_len_bonus(tmp);
 	while (tmp[i])
 	{
 		tmp[i] = ft_strjoin(tmp[i], "/");
 		tmp[i] = ft_strjoin(tmp[i], pp->param[0]);
 		if (access(tmp[i], F_OK) == 0)
+		{
+			ft_free_bonus(tmp, i, len);
 			return (tmp[i]);
+		}
+		free(tmp[i]);
 		i++;
 	}
+	free(tmp);
 	return (NULL);
 }
 
