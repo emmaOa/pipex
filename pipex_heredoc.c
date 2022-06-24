@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:11:50 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/21 04:42:20 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/23 02:12:33 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,24 @@
 
 void	ft_exit_bonus(char *s, t_pipe *pp)
 {
+	pp->errnum = errno;
+	
 	if (ft_strncmp(s, "command not founde: ", ft_strlen(s)) == 0)
 	{
-		s = ft_strjoin(s, pp->param[0]);
+		perror(s);
+		ft_putstr_fd(pp->param[0], 2);
+		// exit (pp->errnum);
 	}
-	perror(s);
-	exit (1);
+	else if (ft_strncmp(s, "!cammand: ", ft_strlen(s)) == 0)
+	{
+		ft_putstr_fd(s, 2);
+		exit (1);
+	}
+	else
+	{
+		perror(s);
+		exit (pp->errnum);
+	}
 }
 
 void	ft_open_files_here(t_pipe *pp, char *arv[], int arc)
@@ -27,7 +39,7 @@ void	ft_open_files_here(t_pipe *pp, char *arv[], int arc)
 	pp->name_file_2 = arv[arc - 1];
 	pp->fd_file_2 = open(pp->name_file_2, O_CREAT | O_RDWR, 0644);
 	if (pp->fd_file_2 == -1)
-		exit(1);
+		ft_exit_bonus("open file is failed ", pp);
 }
 
 void	ft_foork_bonus_here(t_pipe *pp)
@@ -51,7 +63,7 @@ void	ft_foork_bonus_here(t_pipe *pp)
 void	ft_fork_here(t_pipe *pp, char *arv[], char *env[])
 {
 	pp->param = ft_split(arv[pp->i + 3], ' ');
-	pp->url = ft_url_bonus(ft_path_bonus(env), pp);
+	pp->url = ft_url_bonus(ft_path_bonus(env, pp), pp);
 	if (pp->url == NULL)
 		ft_exit_bonus("command not founde", pp);
 	if (pp->i == 0 || pp->i == pp->nb_pipe - 1)

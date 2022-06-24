@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 21:03:13 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/21 04:41:40 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/23 02:05:48 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,41 @@ void	ft_close(t_pipe *pp)
 
 char	*ft_url_bonus(char *path, t_pipe *pp)
 {
+// 	int		i;
+// 	char	**tmp;
+// 	int		len;
+
+// 	i = 0;
+// 	if (ft_strchr(pp->param[0], '/'))
+// 	{
+// 		if (access(pp->param[0], F_OK) == 0)
+// 			return (pp->param[0]);
+// 		return (NULL);
+// 	}
+// 	tmp = ft_split(path, ':');
+// 	len = ft_len_bonus(tmp);
+// 	// ft_putnbr_fd(len, 2);
+// 	// // ft_putstr_fd("hhh\n", 2);
+// 	// exit(0);
+// 	while (tmp[i])
+// 	{
+// 		tmp[i] = ft_strjoin(tmp[i], "/");
+// 		tmp[i] = ft_strjoin(tmp[i], pp->param[0]);
+// 		if (access(tmp[i], F_OK) == 0)
+// 		{
+// 			ft_free_bonus(tmp, i, len);
+// 			return (tmp[i]);
+// 		}
+// 		i++;
+// 		// free(tmp[i]);
+// 	}
+// 	// free(tmp);
+// 	return (NULL);
 	int		i;
-	char	**tmp;
-	int len;
+	char	**url;
+	char	*cmd_path;
+	char	*tmp;
+	int		len;
 
 	i = 0;
 	if (ft_strchr(pp->param[0], '/'))
@@ -38,25 +70,28 @@ char	*ft_url_bonus(char *path, t_pipe *pp)
 			return (pp->param[0]);
 		return (NULL);
 	}
-	tmp = ft_split(path, ':');
-	len = ft_len_bonus(tmp);
-	while (tmp[i])
+	url = ft_split(path, ':');
+	len = ft_len_bonus(url);
+	while (url[i])
 	{
-		tmp[i] = ft_strjoin(tmp[i], "/");
-		tmp[i] = ft_strjoin(tmp[i], pp->param[0]);
-		if (access(tmp[i], F_OK) == 0)
+		cmd_path = ft_strjoin(url[i], "/");
+		tmp = cmd_path;
+		cmd_path = ft_strjoin(cmd_path, pp->param[0]);
+		free(tmp);
+		if (access(cmd_path, F_OK) == 0)
 		{
-			ft_free_bonus(tmp, i, len);
-			return (tmp[i]);
+			ft_free_bonus(url, i, len);
+			return (cmd_path);
 		}
-		free(tmp[i]);
+		free(cmd_path);
+		free(url[i]);
 		i++;
 	}
-	free(tmp);
+	free(url);
 	return (NULL);
 }
 
-char	*ft_path_bonus(char *env[])
+char	*ft_path_bonus(char *env[], t_pipe *pp)
 {
 	int		i;
 	char	*pt;
@@ -71,6 +106,8 @@ char	*ft_path_bonus(char *env[])
 			tmp = env[i];
 		i++;
 	}
+	if (!tmp)
+		ft_exit_bonus("path not founde: ", pp);
 	i = 0;
 	while (tmp[i])
 	{
@@ -101,9 +138,13 @@ void	ft_foork_bonus_utl(t_pipe *pp)
 void	ft_fork_bonus(t_pipe *pp, char *arv[], char *env[])
 {
 	pp->param = ft_split(arv[pp->i + 2], ' ');
-	pp->url = ft_url_bonus(ft_path_bonus(env), pp);
+	pp->url = ft_url_bonus(ft_path_bonus(env, pp), pp);
 	if (pp->url == NULL)
-		ft_exit_bonus("command not founde: ", pp);
+	{
+		system("pipex_bonus");
+		ft_exit_bonus("command not founde: ", pp); 
+		
+	}
 	if (pp->i == 0 || pp->i == pp->nb_pipe - 1)
 		ft_foork_bonus_utl(pp);
 	else

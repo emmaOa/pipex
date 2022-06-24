@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:24:29 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/21 04:37:26 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/22 22:49:30 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <errno.h>
 # include "libft.h"
-# include "ft_printf.h"
 # include "get_next_line.h"
 
+extern	int	errno;
 typedef struct s_pipe
 {
+	int		errnum;
 	char	*url;
 	char	*tmp;
 	int		**fd_pipe;
@@ -41,7 +43,7 @@ typedef struct s_pipe
 }			t_pipe;
 
 char		*ft_url_bonus(char *path, t_pipe *pp);
-char		*ft_path_bonus(char *env[]);
+char		*ft_path_bonus(char *env[], t_pipe *pp);
 void		ft_param_bonus(char *arv[], t_pipe *pp, int arc);
 void		ft_exit_bonus(char *s, t_pipe *pp);
 void		ft_fork_bonus(t_pipe *pp, char *arv[], char *env[]);
@@ -58,4 +60,5 @@ void		ft_wait(t_pipe *pp);
 void		ft_close(t_pipe *pp);
 void		ft_free_bonus(char **tabl, int start, int len);
 int			ft_len_bonus(char **tabl);
+void		ft_free_bonus_int(int **tabl, int start, int len);
 #endif

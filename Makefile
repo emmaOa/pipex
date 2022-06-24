@@ -14,7 +14,7 @@ MANDATORY= pipex.c pipex_utl.c ft_strlen.c ft_putstr_fd.c ft_strjoin.c\
 		ft_strncmp.c ft_split.c ft_putchar_fd.c ft_strchr.c
 BONUS= pipex_bonus.c pipex_utl_bonus.c get_next_line.c get_next_line_utils.c\
 	pipex_heredoc.c main_bonus.c ft_putstr_fd.c ft_strncmp.c\
-	ft_split.c ft_putchar_fd.c$(VRGET_NEXT)
+	ft_split.c ft_putchar_fd.c ft_putnbr_fd.c $(VRGET_NEXT)
 CC=cc
 FLAGS=#-Wall -Werror -Wextra
 DEBUG=-fsanitize=address -g
@@ -29,13 +29,13 @@ all: $(NAME)
 $(NAME):
 	gcc $(FLAGS) $(MANDATORY) -o $(NAME)
 
-debug:
-	gcc $(FLAGS) $(DEBUG) $(MANDATORY) -o $(NAME)
-
-bonus: $(VRGET_NEXT) $(PIP) -fsanitize=address -g
+bonus: $(VRGET_NEXT) $(PIP)
 
 $(PIP):
 	gcc $(FLAGS) $(BONUS) $(DEBUG)  -o $(PIP) -g
+
+debug:
+	gcc $(FLAGS) $(DEBUG) $(PIP) $(MANDATORY) -o $(NAME)
 
 clean:
 	rm -rf *.o

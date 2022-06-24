@@ -23,6 +23,16 @@ void	ft_free_bonus(char **tabl, int start, int len)
 	free(tabl);
 }
 
+void	ft_free_bonus_int(int **tabl, int start, int len)
+{
+	while(start < len)
+	{
+		free(tabl[start]);
+		start++;
+	}
+	free(tabl);
+}
+
 int		ft_len_bonus(char **tabl)
 {
 	int i;
@@ -30,6 +40,7 @@ int		ft_len_bonus(char **tabl)
 	i = 0;
 	while(tabl[i])
 	{
+		ft_putstr_fd("i ", 2);
 		i++;
 	}
 	return (i);
@@ -55,6 +66,7 @@ int	main(int arc, char *arv[], char *env[])
 	else
 	{
 		pp.nb_pipe = arc - 3;
+		// exit(0);
 		ft_pipe(&pp);
 		ft_open_files(&pp, arv, arc);
 		ft_main_fork(&pp, arc, arv, env);

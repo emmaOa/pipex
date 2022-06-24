@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 02:51:01 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/21 04:44:38 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/24 21:20:48 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ void	ft_pipe(t_pipe *pp)
 	while (pp->i < pp->nb_pipe + 1)
 	{
 		if (pipe(pp->fd_pipe[pp->i]) == -1)
+		{
+			ft_free_bonus_int(pp->fd_pipe, 0, (pp->nb_pipe + 1));
 			ft_exit_bonus("error: pipe failed", pp);
+		}
 		pp->i++;
 	}
+	ft_free_bonus_int(pp->fd_pipe, 0, (pp->nb_pipe + 1));
 }
 
 void	ft_open_files(t_pipe *pp, char *arv[], int arc)
@@ -37,16 +41,18 @@ void	ft_open_files(t_pipe *pp, char *arv[], int arc)
 	pp->name_file = arv[1];
 	pp->fd_file = open(pp->name_file, O_RDONLY, 0644);
 	if (pp->fd_file == -1)
-		ft_exit_bonus("open first file is failed", pp);
+		ft_exit_bonus("open file is failed ", pp);
 	pp->name_file_2 = arv[arc - 1];
 	pp->fd_file_2 = open(pp->name_file_2, O_CREAT | O_RDWR, 0644);
 	if (pp->fd_file_2 == -1)
-		ft_exit_bonus("open second file is failed", pp);
+		ft_exit_bonus("open file is failed ", pp);
 }
 
 void	ft_main_fork(t_pipe *pp, int arc, char *arv[], char *env[])
 {
 	pp->nb_fork = arc - 3;
+	// if (pp->fr == 0)
+	// 	ft_exit_bonus("!cammand: ", pp);
 	pp->fr = (int *)malloc(pp->nb_fork * sizeof(int));
 	pp->i = 0;
 	while (pp->i < pp->nb_fork)
