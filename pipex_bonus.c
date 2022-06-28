@@ -27,10 +27,7 @@ void	ft_pipe(t_pipe *pp)
 	while (pp->i < pp->nb_pipe + 1)
 	{
 		if (pipe(pp->fd_pipe[pp->i]) == -1)
-		{
-			// ft_free_bonus_int(pp->fd_pipe, pp->i, (pp->nb_pipe + 1));
 			ft_exit_bonus("error: pipe failed", pp);
-		}
 		pp->i++;
 	}
 }
@@ -80,13 +77,13 @@ void	ft_here_doc(t_pipe *pp, char *arv[])
 		ft_exit_bonus("failed pipe here_doc", pp);
 	ft_putstr_fd("pipe heredoc> ", 1);
 	pp->tmp = get_next_line(0);
-	pp->tmp = ft_strjoin(pp->tmp, "\0");
 	ft_putstr_fd(pp->tmp, pp->pipe_here[1]);
 	while (ft_strncmp(pp->tmp, arv[2], ft_strlen(arv[2])) != 0)
 	{
+		free(pp->tmp);
 		ft_putstr_fd("pipe heredoc> ", 1);
 		pp->tmp = get_next_line(0);
-		pp->tmp = ft_strjoin(pp->tmp, "\0");
 		ft_putstr_fd(pp->tmp, pp->pipe_here[1]);
 	}
+	free(pp->tmp);
 }

@@ -68,6 +68,8 @@ int	main(int arc, char *arv[], char *env[])
 		close(pp.pipe_here[1]);
 		close(pp.pipe_here[0]);
 		ft_close(&pp);
+		ft_free_bonus_int(pp.fd_pipe, 0, (pp.nb_pipe + 1));
+		free(pp.pipe_here);
 		ft_wait(&pp);
 	}
 	else

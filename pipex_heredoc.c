@@ -18,9 +18,10 @@ void	ft_exit_bonus(char *s, t_pipe *pp)
 	
 	if (ft_strncmp(s, "command not founde: ", ft_strlen(s)) == 0)
 	{
-		perror(s);
 		ft_putstr_fd(pp->param[0], 2);
-		// exit (pp->errnum);
+		ft_putstr_fd(": ", 2);
+		perror(s);
+		exit (pp->errnum);
 	}
 	else if (ft_strncmp(s, "!cammand: ", ft_strlen(s)) == 0)
 	{
