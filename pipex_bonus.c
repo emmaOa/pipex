@@ -28,12 +28,11 @@ void	ft_pipe(t_pipe *pp)
 	{
 		if (pipe(pp->fd_pipe[pp->i]) == -1)
 		{
-			ft_free_bonus_int(pp->fd_pipe, 0, (pp->nb_pipe + 1));
+			// ft_free_bonus_int(pp->fd_pipe, pp->i, (pp->nb_pipe + 1));
 			ft_exit_bonus("error: pipe failed", pp);
 		}
 		pp->i++;
 	}
-	ft_free_bonus_int(pp->fd_pipe, 0, (pp->nb_pipe + 1));
 }
 
 void	ft_open_files(t_pipe *pp, char *arv[], int arc)
@@ -51,8 +50,6 @@ void	ft_open_files(t_pipe *pp, char *arv[], int arc)
 void	ft_main_fork(t_pipe *pp, int arc, char *arv[], char *env[])
 {
 	pp->nb_fork = arc - 3;
-	// if (pp->fr == 0)
-	// 	ft_exit_bonus("!cammand: ", pp);
 	pp->fr = (int *)malloc(pp->nb_fork * sizeof(int));
 	pp->i = 0;
 	while (pp->i < pp->nb_fork)

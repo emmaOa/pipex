@@ -40,6 +40,7 @@ typedef struct s_pipe
 	int		nb_fork;
 	int		i;
 	int		j;
+	int		len;
 }			t_pipe;
 
 char		*ft_url_bonus(char *path, t_pipe *pp);
@@ -61,4 +62,5 @@ void		ft_close(t_pipe *pp);
 void		ft_free_bonus(char **tabl, int start, int len);
 int			ft_len_bonus(char **tabl);
 void		ft_free_bonus_int(int **tabl, int start, int len);
+int			ft_len_bonus_int(int **tabl);
 #endif

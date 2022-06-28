@@ -33,6 +33,8 @@ int		ft_len(char **tabl)
 	}
 	return (i);
 }
+
+
 char	*ft_url(char *path, char *comnd)
 {
 	int		i;

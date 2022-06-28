@@ -27,41 +27,9 @@ void	ft_close(t_pipe *pp)
 
 char	*ft_url_bonus(char *path, t_pipe *pp)
 {
-// 	int		i;
-// 	char	**tmp;
-// 	int		len;
-
-// 	i = 0;
-// 	if (ft_strchr(pp->param[0], '/'))
-// 	{
-// 		if (access(pp->param[0], F_OK) == 0)
-// 			return (pp->param[0]);
-// 		return (NULL);
-// 	}
-// 	tmp = ft_split(path, ':');
-// 	len = ft_len_bonus(tmp);
-// 	// ft_putnbr_fd(len, 2);
-// 	// // ft_putstr_fd("hhh\n", 2);
-// 	// exit(0);
-// 	while (tmp[i])
-// 	{
-// 		tmp[i] = ft_strjoin(tmp[i], "/");
-// 		tmp[i] = ft_strjoin(tmp[i], pp->param[0]);
-// 		if (access(tmp[i], F_OK) == 0)
-// 		{
-// 			ft_free_bonus(tmp, i, len);
-// 			return (tmp[i]);
-// 		}
-// 		i++;
-// 		// free(tmp[i]);
-// 	}
-// 	// free(tmp);
-// 	return (NULL);
 	int		i;
 	char	**url;
 	char	*cmd_path;
-	char	*tmp;
-	int		len;
 
 	i = 0;
 	if (ft_strchr(pp->param[0], '/'))
@@ -71,23 +39,16 @@ char	*ft_url_bonus(char *path, t_pipe *pp)
 		return (NULL);
 	}
 	url = ft_split(path, ':');
-	len = ft_len_bonus(url);
+	pp->len = ft_len_bonus(url);
 	while (url[i])
 	{
 		cmd_path = ft_strjoin(url[i], "/");
-		tmp = cmd_path;
 		cmd_path = ft_strjoin(cmd_path, pp->param[0]);
-		free(tmp);
 		if (access(cmd_path, F_OK) == 0)
-		{
-			ft_free_bonus(url, i, len);
 			return (cmd_path);
-		}
 		free(cmd_path);
-		free(url[i]);
 		i++;
 	}
-	free(url);
 	return (NULL);
 }
 
