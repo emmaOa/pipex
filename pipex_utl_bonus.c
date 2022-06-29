@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 21:03:13 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/23 02:05:48 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/29 05:00:09 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,7 @@ void	ft_fork_bonus(t_pipe *pp, char *arv[], char *env[])
 	pp->param = ft_split(arv[pp->i + 2], ' ');
 	pp->url = ft_url_bonus(ft_path_bonus(env, pp), pp);
 	if (pp->url == NULL)
-	{
-		system("pipex_bonus");
-		ft_exit_bonus("command not founde: ", pp); 
-		
-	}
+		ft_exit_bonus("command not founde: ", pp);
 	if (pp->i == 0 || pp->i == pp->nb_pipe - 1)
 		ft_foork_bonus_utl(pp);
 	else

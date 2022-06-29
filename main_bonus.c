@@ -6,51 +6,31 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 16:38:25 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/20 17:35:24 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/29 05:18:57 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
-#include <stdio.h>
 
-void	ft_free_bonus(char **tabl, int start, int len)
+int	ft_len_bonus_int(int **tabl)
 {
-	while(start < len)
-	{
-		free(tabl[start]);
-		start++;
-	}
-	free(tabl);
-}
-
-void	ft_free_bonus_int(int **tabl, int start, int len)
-{
-	while(start < len)
-	{
-		free(tabl[start]);
-		start++;
-	}
-	free(tabl);
-}
-
-int		ft_len_bonus_int(int **tabl)
-{
-	int i;
+	int	i;
 
 	i = 0;
-	while(tabl[i])
+	while (tabl[i])
 		i++;
 	return (i);
 }
 
-int		ft_len_bonus(char **tabl)
+void	multi_pipe(t_pipe *pp, char *arv[], int arc, char *env[])
 {
-	int i;
-
-	i = 0;
-	while(tabl[i])
-		i++;
-	return (i);
+	pp->nb_pipe = arc - 3;
+	ft_pipe(pp);
+	ft_open_files(pp, arv, arc);
+	ft_main_fork(pp, arc, arv, env);
+	ft_close(pp);
+	ft_free_bonus_int(pp->fd_pipe, 0, (pp->nb_pipe + 1));
+	ft_wait(pp);
 }
 
 int	main(int arc, char *arv[], char *env[])
@@ -73,14 +53,6 @@ int	main(int arc, char *arv[], char *env[])
 		ft_wait(&pp);
 	}
 	else
-	{
-		pp.nb_pipe = arc - 3;
-		ft_pipe(&pp);
-		ft_open_files(&pp, arv, arc);
-		ft_main_fork(&pp, arc, arv, env);
-		ft_close(&pp);
-		ft_free_bonus_int(pp.fd_pipe, 0, (pp.nb_pipe + 1));
-		ft_wait(&pp);
-	}
-	return (0);
+		multi_pipe(&pp, arv, arc, env);
+	return (200);
 }

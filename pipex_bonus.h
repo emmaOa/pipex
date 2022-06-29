@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:24:29 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/22 22:49:30 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/29 05:05:05 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <errno.h>
 # include "libft.h"
 # include "get_next_line.h"
 
-extern	int	errno;
 typedef struct s_pipe
 {
 	int		errnum;

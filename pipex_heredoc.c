@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:11:50 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/23 02:12:33 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/29 05:03:53 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,8 @@
 
 void	ft_exit_bonus(char *s, t_pipe *pp)
 {
-	pp->errnum = errno;
-	
-	if (ft_strncmp(s, "command not founde: ", ft_strlen(s)) == 0)
-	{
-		ft_putstr_fd(pp->param[0], 2);
-		ft_putstr_fd(": ", 2);
-		perror(s);
-		exit (pp->errnum);
-	}
-	else if (ft_strncmp(s, "!cammand: ", ft_strlen(s)) == 0)
-	{
-		ft_putstr_fd(s, 2);
-		exit (1);
-	}
-	else
-	{
-		perror(s);
-		exit (pp->errnum);
-	}
+	perror(s);
+	exit(0);
 }
 
 void	ft_open_files_here(t_pipe *pp, char *arv[], int arc)

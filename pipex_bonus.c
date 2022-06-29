@@ -6,7 +6,7 @@
 /*   By: iouazzan <iouazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 02:51:01 by iouazzan          #+#    #+#             */
-/*   Updated: 2022/06/24 21:20:48 by iouazzan         ###   ########.fr       */
+/*   Updated: 2022/06/29 04:35:47 by iouazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	ft_open_files(t_pipe *pp, char *arv[], int arc)
 
 void	ft_main_fork(t_pipe *pp, int arc, char *arv[], char *env[])
 {
+	if (arc <= 4)
+		ft_exit_bonus("pipex", pp);
 	pp->nb_fork = arc - 3;
 	pp->fr = (int *)malloc(pp->nb_fork * sizeof(int));
 	pp->i = 0;
