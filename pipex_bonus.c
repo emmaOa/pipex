@@ -60,6 +60,7 @@ void	ft_main_fork(t_pipe *pp, int arc, char *arv[], char *env[])
 			ft_fork_bonus(pp, arv, env);
 		pp->i++;
 	}
+	free(pp->fr);
 }
 
 void	ft_wait(t_pipe *pp)
